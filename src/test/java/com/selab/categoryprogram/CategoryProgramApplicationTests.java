@@ -1,8 +1,7 @@
 package com.selab.categoryprogram;
 
-import com.selab.categoryprogram.MongDBRepository.COMISRepository;
-import com.selab.categoryprogram.Schema.COMISDoc;
-import com.selab.categoryprogram.Service.TestService;
+import com.selab.categoryprogram.MongDBRepository.FindRepository;
+import com.selab.categoryprogram.MongoDBSchema.COMISDoc;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -20,10 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CategoryProgramApplicationTests {
 
     @Autowired
-    COMISRepository comisRepository;
-
-    @Autowired
-    TestService testService;
+    FindRepository comisRepository;
 
     @Test
     void mongoDBFindAllTest() {

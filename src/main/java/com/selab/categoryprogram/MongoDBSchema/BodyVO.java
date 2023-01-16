@@ -1,4 +1,4 @@
-package com.selab.categoryprogram.Schema;
+package com.selab.categoryprogram.MongoDBSchema;
 
 import lombok.Getter;
 import lombok.Setter;
