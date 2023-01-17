@@ -1,23 +1,27 @@
 package com.selab.categoryprogram.Controller;
 
+import com.selab.categoryprogram.COMISSchema.CDMSVO;
 import com.selab.categoryprogram.Service.COMISToCDMSService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 
 public class TestController {
+    private final COMISToCDMSService comisToCDMSService;
 
-    @Autowired
-    private COMISToCDMSService comisToCDMSService;
+    public TestController(COMISToCDMSService comisToCDMSService) {
+        this.comisToCDMSService = comisToCDMSService;
+    }
+
     @RequestMapping("/")
-    public String Test() throws IOException {
-        comisToCDMSService.classifyMethod();
+    public String Test(Model model) throws IOException {
+        List<CDMSVO> cdmsvos = comisToCDMSService.classifyMethod();
+        model.addAttribute(cdmsvos);
         return "index";
     }
 }

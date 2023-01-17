@@ -17,21 +17,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReadCOMISCodeFileService {
 
-    public List<ReadCodeDto> readCodeDtoList() throws IOException {
+    public List<ReadCodeDto> getReadCodeLists() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("C:\\DATA.OBSD.csv"));
         String line;
-        List<ReadCodeDto> readCodeDtoList = new ArrayList<>();
-        ReadCodeDto readCodeDto = new ReadCodeDto();
+        String[] splitCode;
+        ArrayList<ReadCodeDto> readCodeDtoList = new ArrayList<>();
         while((line = reader.readLine()) != null) {
-            String[] splitCode = line.split(",");
+            splitCode = line.split(",");
+            ReadCodeDto readCodeDto = new ReadCodeDto();
             readCodeDto.setNewCode(splitCode[0]);
             List<String> test = Arrays.asList(splitCode[1].split("\\."));
             readCodeDto.setSaveCodeGroup(test);
             readCodeDto.setIncludeWordInFileName(splitCode[2]);
             readCodeDtoList.add(readCodeDto);
-            System.out.println(line);
         }
         reader.close();
-        return readCodeDtoList();
+        return readCodeDtoList;
     }
 }
