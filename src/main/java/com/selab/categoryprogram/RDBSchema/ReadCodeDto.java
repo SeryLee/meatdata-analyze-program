@@ -1,4 +1,4 @@
-package com.selab.categoryprogram.COMISSchema;
+package com.selab.categoryprogram.RDBSchema;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +11,5 @@ public class ReadCodeDto {
     private String newCode;
     private List<String> saveCodeGroup;
     private String includeWordInFileName;
-
+    private String fileName;
 }

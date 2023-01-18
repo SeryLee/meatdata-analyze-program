@@ -1,10 +1,10 @@
 package com.selab.categoryprogram.Service;
 
-import com.selab.categoryprogram.COMISSchema.CDMSVO;
-import com.selab.categoryprogram.COMISSchema.ReadCodeDto;
+import com.selab.categoryprogram.RDBSchema.CDMSVO;
+import com.selab.categoryprogram.RDBSchema.ReadCodeDto;
 import com.selab.categoryprogram.JPARepository.H2Repository;
 import com.selab.categoryprogram.MongDBRepository.FindRepository;
-import com.selab.categoryprogram.MongoDBSchema.COMISDoc;
+import com.selab.categoryprogram.MongoDBSchema.COMISDoc_db;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,11 +37,11 @@ class COMISToCDMSServiceTest {
             String includeWordInFileName = readCodeDto.getIncludeWordInFileName();
             List<String> saveCodeGroup = readCodeDto.getSaveCodeGroup();
 
-            List<COMISDoc> allByCodes = findRepository.findAllByReadCodeDto(includeWordInFileName, saveCodeGroup);
+            List<COMISDoc_db> allByCodes = findRepository.findAllByReadCodeDto(includeWordInFileName, saveCodeGroup);
             CDMSVO cdmsvo = new CDMSVO();
-            for (COMISDoc comisDoc : allByCodes) {
-                cdmsvo.setNewCode(readCodeDto.getNewCode());
-                cdmsvo.setProduct_id(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
+            for (COMISDoc_db comisDoc : allByCodes) {
+                cdmsvo.setNew_code(readCodeDto.getNewCode());
+                cdmsvo.setComis_id(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
                 cdmsvo.setProduct_group(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
                 h2Repository.save(cdmsvo);
             }
@@ -59,13 +59,13 @@ class COMISToCDMSServiceTest {
             Criteria criteria = new Criteria();
             criteria.andOperator(Criteria.where("_id").regex(includeWordInFileName), Criteria.where("header.meta_info.product_info.product_group").is(saveCodeGroup));
             query.addCriteria(criteria);
-            List<COMISDoc> comisDocs = mongoTemplate.find(query, COMISDoc.class);
+            List<COMISDoc_db> comisDocs = mongoTemplate.find(query, COMISDoc_db.class);
 
             CDMSVO cdmsvo = new CDMSVO();
-            for (COMISDoc comisDoc : comisDocs) {
-                cdmsvo.setNewCode(readCodeDto.getNewCode());
-                cdmsvo.setProduct_id(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
-                cdmsvo.setProduct_group(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
+            for (COMISDoc_db comisDocDb : comisDocs) {
+                cdmsvo.setNew_code(readCodeDto.getNewCode());
+                cdmsvo.setComis_id(comisDocDb.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
+                cdmsvo.setProduct_group(comisDocDb.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
                 h2Repository.save(cdmsvo);
             }
         }

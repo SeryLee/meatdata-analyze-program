@@ -14,4 +14,7 @@ public class ProductInfoVO {
 
     @Field("product_group")
     private List<String> product_group;
+
+    @Field("product_name_kr")
+    private String product_name_kr;
 }

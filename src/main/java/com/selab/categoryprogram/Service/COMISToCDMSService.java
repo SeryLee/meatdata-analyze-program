@@ -1,47 +1,96 @@
 package com.selab.categoryprogram.Service;
 
-import com.selab.categoryprogram.COMISSchema.CDMSVO;
-import com.selab.categoryprogram.COMISSchema.ReadCodeDto;
+import com.selab.categoryprogram.RDBSchema.CDMSVO;
+import com.selab.categoryprogram.RDBSchema.MappingResultDto;
+import com.selab.categoryprogram.RDBSchema.ReadCodeDto;
 import com.selab.categoryprogram.JPARepository.H2Repository;
-import com.selab.categoryprogram.MongDBRepository.FindRepository;
-import com.selab.categoryprogram.MongoDBSchema.COMISDoc;
+import com.selab.categoryprogram.MongoDBSchema.COMISDoc_db;
+import com.selab.categoryprogram.MongoDBSchema.COMISDoc_file;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 public class COMISToCDMSService {
 
-    private final FindRepository findRepository;
     private final H2Repository h2Repository;
     private final ReadCOMISCodeFileService readCOMISCodeFileService;
     private final MongoTemplate mongoTemplate;
 
-    public COMISToCDMSService(FindRepository findRepository, H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate) {
-        this.findRepository = findRepository;
+    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate) {
         this.h2Repository = h2Repository;
         this.readCOMISCodeFileService = readCOMISCodeFileService;
         this.mongoTemplate = mongoTemplate;
     }
 
-    public List<CDMSVO> classifyMethod() throws IOException {
+    public List<CDMSVO> classifyCOMIS() throws IOException {
         List<ReadCodeDto> readCodeDtos = readCOMISCodeFileService.getReadCodeLists();
         for (ReadCodeDto readCodeDto : readCodeDtos) {
-            String includeWordInFileName = readCodeDto.getIncludeWordInFileName();
-            List<String> saveCodeGroup = readCodeDto.getSaveCodeGroup();
-            List<COMISDoc> allByReadCodeDto = findRepository.findAllByReadCodeDto(includeWordInFileName, saveCodeGroup);
-            CDMSVO cdmsvo = new CDMSVO();
-            for (COMISDoc comisDoc : allByReadCodeDto) {
-                cdmsvo.setNewCode(readCodeDto.getNewCode());
-                cdmsvo.setProduct_id(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
-                cdmsvo.setProduct_group(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
-                h2Repository.save(cdmsvo);
-            }
+            setCOMISInfosToCDMS(readCodeDto);
         }
         return h2Repository.findAll();
+    }
+
+    private void setCOMISInfosToCDMS(ReadCodeDto readCodeDto) {
+        String includeWordInFileName = readCodeDto.getIncludeWordInFileName();
+        List<String> saveCodeGroup = readCodeDto.getSaveCodeGroup();
+        Query query = new Query();
+        Criteria criteria = new Criteria();
+        criteria.andOperator(Criteria.where("_id").regex(includeWordInFileName), Criteria.where("header.meta_info.product_info.product_group").all(saveCodeGroup));
+        query.addCriteria(criteria);
+
+        getCOMISInfoFromFile(readCodeDto, query);
+        getCOMISInfoFromDB(readCodeDto, query);
+    }
+
+    private void getCOMISInfoFromFile(ReadCodeDto readCodeDto, Query query) {
+        List<COMISDoc_file> comisDocs = mongoTemplate.find(query, COMISDoc_file.class);
+        ArrayList<CDMSVO> cdmsvos = new ArrayList<>();
+        for (COMISDoc_file comisDoc : comisDocs) {
+            CDMSVO cdmsvo = new CDMSVO();
+            cdmsvo.setNew_code(readCodeDto.getNewCode());
+            cdmsvo.setCategory(readCodeDto.getFileName());
+            cdmsvo.setComis_id(comisDoc.get_id());
+            cdmsvo.setProduct_group(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
+            cdmsvo.setProduct_name_kr(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_kr());
+            cdmsvo.setType("FILE");
+            cdmsvos.add(cdmsvo);
+        }
+        h2Repository.saveAll(cdmsvos);
+    }
+
+    private void getCOMISInfoFromDB(ReadCodeDto readCodeDto, Query query) {
+        List<COMISDoc_db> comisDocs = mongoTemplate.find(query, COMISDoc_db.class);
+        ArrayList<CDMSVO> cdmsvos = new ArrayList<>();
+        for (COMISDoc_db comisDoc : comisDocs) {
+            CDMSVO cdmsvo = new CDMSVO();
+            cdmsvo.setNew_code(readCodeDto.getNewCode());
+            cdmsvo.setCategory(readCodeDto.getFileName());
+            cdmsvo.setComis_id(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
+            cdmsvo.setProduct_group(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
+            cdmsvo.setProduct_name_kr(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_kr());
+            cdmsvo.setType("DB");
+            cdmsvos.add(cdmsvo);
+        }
+        h2Repository.saveAll(cdmsvos);
+    }
+
+    public List<MappingResultDto> getCategoryCountResult() {
+        List<String> categoryList = h2Repository.findCategory();
+        List<MappingResultDto> countResult = new ArrayList<>();
+        for (String category : categoryList) {
+            MappingResultDto resultDto = new MappingResultDto();
+            resultDto.setCategory(category);
+            resultDto.setCount_result(h2Repository.countByCategory(category));
+            countResult.add(resultDto);
+        }
+        return countResult;
     }
 }

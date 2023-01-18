@@ -1,4 +1,4 @@
-package com.selab.categoryprogram.COMISSchema;
+package com.selab.categoryprogram.RDBSchema;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,7 +14,10 @@ public class CDMSVO {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String newCode;
-    private String product_id;
+    private String new_code;
+    private String category;
+    private String comis_id;
     private String product_group;
+    private String product_name_kr;
+    private String type;
 }

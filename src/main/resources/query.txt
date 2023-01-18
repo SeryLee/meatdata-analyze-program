@@ -1,0 +1,4 @@
+-- 같은 id 중복 체크
+select count(comis_id) as cnt, comis_id from cdms group by comis_id having cnt>1;
+
+select * from cdms where comis_id like 'T.COMIS5.DCOMIS.MIS_ADM^SEA_LHAWS';
