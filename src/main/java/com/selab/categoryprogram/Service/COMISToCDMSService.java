@@ -1,5 +1,7 @@
 package com.selab.categoryprogram.Service;
 
+import com.selab.categoryprogram.MongDBRepository.FindRepository;
+import com.selab.categoryprogram.MongoDBSchema.COMISDocDto;
 import com.selab.categoryprogram.RDBSchema.CDMSVO;
 import com.selab.categoryprogram.RDBSchema.MappingResultDto;
 import com.selab.categoryprogram.RDBSchema.ReadCodeDto;
@@ -23,19 +25,21 @@ public class COMISToCDMSService {
     private final H2Repository h2Repository;
     private final ReadCOMISCodeFileService readCOMISCodeFileService;
     private final MongoTemplate mongoTemplate;
+    private final FindRepository findRepository;
 
-    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate) {
+    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate,
+                              FindRepository findRepository) {
         this.h2Repository = h2Repository;
         this.readCOMISCodeFileService = readCOMISCodeFileService;
         this.mongoTemplate = mongoTemplate;
+        this.findRepository = findRepository;
     }
 
-    public List<CDMSVO> classifyCOMIS() throws IOException {
+    public void classifyCOMIS() throws IOException {
         List<ReadCodeDto> readCodeDtos = readCOMISCodeFileService.getReadCodeLists();
         for (ReadCodeDto readCodeDto : readCodeDtos) {
             setCOMISInfosToCDMS(readCodeDto);
         }
-        return h2Repository.findAll();
     }
 
     private void setCOMISInfosToCDMS(ReadCodeDto readCodeDto) {
@@ -92,5 +96,20 @@ public class COMISToCDMSService {
             countResult.add(resultDto);
         }
         return countResult;
+    }
+
+    public List<COMISDocDto> getNoMappingData(List<String> comisIdList) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").nin(comisIdList));
+        List<COMISDoc_db> dataFromDB = mongoTemplate.find(query, COMISDoc_db.class);
+        List<COMISDoc_file> dataFromFile = mongoTemplate.find(query, COMISDoc_file.class);
+        List<COMISDocDto> comisDocDtos = new ArrayList<>();
+        for (COMISDoc_file comisDocFile : dataFromFile) {
+            COMISDocDto comisDocDto = new COMISDocDto();
+            comisDocDto.set_id(comisDocFile.get_id());
+            comisDocDto.setProduct_id(comisDocFile.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
+            comisDocDtos.add(comisDocDto);
+        }
+        return comisDocDtos;
     }
 }

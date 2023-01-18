@@ -1,6 +1,7 @@
 package com.selab.categoryprogram.Controller;
 
 import com.selab.categoryprogram.JPARepository.H2Repository;
+import com.selab.categoryprogram.MongoDBSchema.COMISDocDto;
 import com.selab.categoryprogram.RDBSchema.CDMSVO;
 import com.selab.categoryprogram.RDBSchema.MappingResultDto;
 import com.selab.categoryprogram.Service.COMISToCDMSService;
@@ -20,20 +21,30 @@ public class IndexController {
         this.comisToCDMSService = comisToCDMSService;
         this.h2Repository = h2Repository;
     }
-
     @RequestMapping("/")
-    public String Test(Model model) throws IOException {
-        List<CDMSVO> cdmsvos = comisToCDMSService.classifyCOMIS();
+    public String index(Model model) throws IOException {
+        comisToCDMSService.classifyCOMIS();
         List<MappingResultDto> countResult = comisToCDMSService.getCategoryCountResult();
         long fileCnt = h2Repository.countByType("FILE");
         long dbCnt = h2Repository.countByType("DB");
-
-//        h2Repository.findAll().stream();
-
-        model.addAttribute("cdmsvos", cdmsvos);
         model.addAttribute("countResult", countResult);
         model.addAttribute("fileCnt", fileCnt);
         model.addAttribute("dbCnt", dbCnt);
         return "index";
+    }
+
+    @RequestMapping("/mappingData")
+    public String mappingData(Model model) {
+        List<CDMSVO> cdmsvos = h2Repository.findAll();
+        model.addAttribute("cdmsvos", cdmsvos);
+        return "mappingData";
+    }
+
+    @RequestMapping("/noMappingData")
+    public String noMappingData(Model model) {
+        List<String> comisIdList = h2Repository.findCOMISId();
+        List<COMISDocDto> noMappingData = comisToCDMSService.getNoMappingData(comisIdList);
+        model.addAttribute("data", noMappingData);
+        return "noMappingData";
     }
 }

@@ -18,4 +18,6 @@ public interface H2Repository extends JpaRepository<CDMSVO, Long> {
 
     long countByType(String type);
 
+    @Query("select c.comis_id from CDMS c")
+    List<String> findCOMISId();
 }

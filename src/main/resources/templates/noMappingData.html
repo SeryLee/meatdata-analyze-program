@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Mapping Detail</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NEW_CODE</th>
+        <th>PRODUCT_GROUP</th>
+        <th>PRODUCT_NAME_KR</th>
+        <th>COMIS_ID</th>
+    </tr>
+    <tr th:each="cdmsvo : ${data}">
+        <td><span th:text="${cdmsvo._id}"></span></td>
+        <td><span th:text="${cdmsvo.product_id}"></span></td>
+    </tr>
+</table>
+</body>
+</html>
