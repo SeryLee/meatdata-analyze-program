@@ -77,7 +77,7 @@ public class COMISToCDMSService {
             CDMSVO cdmsvo = new CDMSVO();
             cdmsvo.setNew_code(readCodeDto.getNewCode());
             cdmsvo.setCategory(readCodeDto.getFileName());
-            cdmsvo.setComis_id(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
+            cdmsvo.setComis_id(comisDoc.get_id());
             cdmsvo.setProduct_group(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
             cdmsvo.setProduct_name_kr(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_kr());
             cdmsvo.setType("DB");
@@ -107,7 +107,7 @@ public class COMISToCDMSService {
         for (COMISDoc_file comisDocFile : dataFromFile) {
             COMISDocDto comisDocDto = new COMISDocDto();
             comisDocDto.set_id(comisDocFile.get_id());
-            comisDocDto.setProduct_id(comisDocFile.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
+            comisDocDto.setProduct_name_kr(comisDocFile.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_kr());
             comisDocDtos.add(comisDocDto);
         }
         return comisDocDtos;

@@ -8,6 +8,24 @@
 <h2>Mapping Detail</h2>
 <table>
   <tr>
+    <th>TYPE</th>
+    <th>COUNT</th>
+  </tr>
+  <tr>
+    <td><span>FILE</span></td>
+    <td><span th:text="${fileCnt}"></span>건</td>
+  </tr>
+  <tr>
+    <td><span>DB</span></td>
+    <td><span th:text="${dbCnt}"></span>건</td>
+  </tr>
+  <tr>
+    <td><span>TOTAL</span></td>
+    <td><span th:text="${dbCnt}+${fileCnt}"></span>건</td>
+  </tr>
+</table>
+<table>
+  <tr>
     <th>ID</th>
     <th>NEW_CODE</th>
     <th>PRODUCT_GROUP</th>

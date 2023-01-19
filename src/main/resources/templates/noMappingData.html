@@ -6,17 +6,15 @@
 </head>
 <body>
 <h2>Mapping Detail</h2>
+<h3>TOTAL : <span th:text="${size}"></span>건</h3>
 <table>
     <tr>
         <th>ID</th>
-        <th>NEW_CODE</th>
-        <th>PRODUCT_GROUP</th>
-        <th>PRODUCT_NAME_KR</th>
-        <th>COMIS_ID</th>
+        <th>PRODUCT NAME KR</th>
     </tr>
     <tr th:each="cdmsvo : ${data}">
         <td><span th:text="${cdmsvo._id}"></span></td>
-        <td><span th:text="${cdmsvo.product_id}"></span></td>
+        <td><span th:text="${cdmsvo.product_name_kr}"></span></td>
     </tr>
 </table>
 </body>

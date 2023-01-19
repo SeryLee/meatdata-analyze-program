@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class COMISDocDto {
     @Id
     private String _id;
-    private String _class;
+    private String product_name_kr;
     private String product_id;
 }
 

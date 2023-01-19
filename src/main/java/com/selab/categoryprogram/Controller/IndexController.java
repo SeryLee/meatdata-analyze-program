@@ -25,9 +25,10 @@ public class IndexController {
     public String index(Model model) throws IOException {
         comisToCDMSService.classifyCOMIS();
         List<MappingResultDto> countResult = comisToCDMSService.getCategoryCountResult();
+        model.addAttribute("countResult", countResult);
+
         long fileCnt = h2Repository.countByType("FILE");
         long dbCnt = h2Repository.countByType("DB");
-        model.addAttribute("countResult", countResult);
         model.addAttribute("fileCnt", fileCnt);
         model.addAttribute("dbCnt", dbCnt);
         return "index";
@@ -37,6 +38,11 @@ public class IndexController {
     public String mappingData(Model model) {
         List<CDMSVO> cdmsvos = h2Repository.findAll();
         model.addAttribute("cdmsvos", cdmsvos);
+
+        long fileCnt = h2Repository.countByType("FILE");
+        long dbCnt = h2Repository.countByType("DB");
+        model.addAttribute("fileCnt", fileCnt);
+        model.addAttribute("dbCnt", dbCnt);
         return "mappingData";
     }
 
@@ -44,7 +50,9 @@ public class IndexController {
     public String noMappingData(Model model) {
         List<String> comisIdList = h2Repository.findCOMISId();
         List<COMISDocDto> noMappingData = comisToCDMSService.getNoMappingData(comisIdList);
+        int size = noMappingData.size();
         model.addAttribute("data", noMappingData);
+        model.addAttribute("size", size);
         return "noMappingData";
     }
 }
