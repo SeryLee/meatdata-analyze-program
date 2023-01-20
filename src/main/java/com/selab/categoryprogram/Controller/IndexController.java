@@ -22,8 +22,8 @@ public class IndexController {
         this.h2Repository = h2Repository;
     }
     @RequestMapping("/")
-    public String index(Model model) throws IOException {
-        comisToCDMSService.classifyCOMIS();
+    public String index(Model model) {
+
         List<MappingResultDto> countResult = comisToCDMSService.getCategoryCountResult();
         model.addAttribute("countResult", countResult);
 

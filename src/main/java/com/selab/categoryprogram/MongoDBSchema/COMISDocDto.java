@@ -13,5 +13,6 @@ public class COMISDocDto {
     private String _id;
     private String product_name_kr;
     private String product_id;
+    private String type;
 }
 

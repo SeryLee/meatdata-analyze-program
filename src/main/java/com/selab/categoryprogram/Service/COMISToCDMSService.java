@@ -108,6 +108,14 @@ public class COMISToCDMSService {
             COMISDocDto comisDocDto = new COMISDocDto();
             comisDocDto.set_id(comisDocFile.get_id());
             comisDocDto.setProduct_name_kr(comisDocFile.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_kr());
+            comisDocDto.setType("FILE");
+            comisDocDtos.add(comisDocDto);
+        }
+        for (COMISDoc_db comisDocDb : dataFromDB) {
+            COMISDocDto comisDocDto = new COMISDocDto();
+            comisDocDto.set_id(comisDocDb.get_id());
+            comisDocDto.setProduct_name_kr(comisDocDb.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_kr());
+            comisDocDto.setType("DB");
             comisDocDtos.add(comisDocDto);
         }
         return comisDocDtos;
