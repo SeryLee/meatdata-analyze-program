@@ -25,14 +25,11 @@ public class COMISToCDMSService {
     private final H2Repository h2Repository;
     private final ReadCOMISCodeFileService readCOMISCodeFileService;
     private final MongoTemplate mongoTemplate;
-    private final FindRepository findRepository;
 
-    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate,
-                              FindRepository findRepository) {
+    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate) {
         this.h2Repository = h2Repository;
         this.readCOMISCodeFileService = readCOMISCodeFileService;
         this.mongoTemplate = mongoTemplate;
-        this.findRepository = findRepository;
     }
 
     public void classifyCOMIS() throws IOException {

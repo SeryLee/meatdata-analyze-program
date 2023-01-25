@@ -1,12 +1,12 @@
-package com.selab.categoryprogram.MongoDBSchema;
+package com.selab.categoryprogram.MongoDBSchema.Header;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
-@Setter
 public class MetaInfoVO {
     @Field("product_info")
     private ProductInfoVO productInfoVO;
+    @Field("apply_info")
+    private ApplyInfoVO applyInfoVO;
 }
