@@ -14,16 +14,6 @@
 <h2>Mapping Result</h2>
 <table>
     <tr>
-        <th>NEW_CATEGORY</th>
-        <th>COUNT</th>
-    </tr>
-    <tr th:each="result : ${countResult}">
-        <td><span th:text="${result.getCategory}"></span></td>
-        <td><span th:text="${result.count_result}"></span>건</td>
-    </tr>
-</table>
-<table>
-    <tr>
         <th>TYPE</th>
         <th>ORIGINAL DOCUMENTS</th>
         <th>MAPPING COUNT</th>
@@ -46,6 +36,17 @@
         <td><span>9882건</span></td>
         <td><span th:text="${dbCnt}+${fileCnt}"></span>건</td>
         <td><span th:text="9882 - (${dbCnt}+${fileCnt})"></span>건</td>
+    </tr>
+</table>
+<h2>Mapping Detail</h2>
+<table>
+    <tr>
+        <th>NEW_CATEGORY</th>
+        <th>COUNT</th>
+    </tr>
+    <tr th:each="result : ${countResult}">
+        <td><span th:text="${result.getCategory}"></span></td>
+        <td><span th:text="${result.count_result}"></span>건</td>
     </tr>
 </table>
 <a href="/mappingData"><button>Mapping Data</button></a>

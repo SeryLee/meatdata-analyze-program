@@ -27,16 +27,16 @@ spring.mvc.view.prefix=/templates/
 spring.mvc.view.suffix=.html
 ```
 
-### 2. 메타데이터와 매핑할 코드 리스트(csv 파일)가 있는 폴더 경로 설정
+### 2. 메타데이터와 매핑할 코드 리스트(csv 파일)가 있는 폴더 경로
 
 [ReadCOMISCodeFileService.java](http://ReadCOMISCodeFileService.java)
 
 ```java
-private static File[] getFiles() {
-        String folderPath = "폴더 경로";
-        File folder = new File(folderPath);
+private static File[] getFiles() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("CSVFolder");
+        File folder = new File(classPathResource.getURI().getPath());
         return folder.listFiles();
-}
+        }
 ```
 
 ### 3. 프로그램 실행 후 RDB 확인 방법

@@ -2,6 +2,7 @@ package com.selab.categoryprogram.Service;
 
 import com.selab.categoryprogram.RDBSchema.ReadCodeDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,9 +49,9 @@ public class ReadCOMISCodeFileService {
         return readCodeDto;
     }
 
-    private static File[] getFiles() {
-        String folderPath = "C:\\CDMS";
-        File folder = new File(folderPath);
+    private static File[] getFiles() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("CSVFolder");
+        File folder = new File(classPathResource.getURI().getPath());
         return folder.listFiles();
     }
 }
