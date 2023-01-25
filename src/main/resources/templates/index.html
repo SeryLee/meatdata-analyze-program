@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    table, th, td {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+</style>
 <body>
 <h2>Mapping Result</h2>
 <table>
@@ -19,19 +25,27 @@
 <table>
     <tr>
         <th>TYPE</th>
-        <th>COUNT</th>
+        <th>ORIGINAL DOCUMENTS</th>
+        <th>MAPPING COUNT</th>
+        <th>NO MAPPING COUNT</th>
     </tr>
     <tr>
         <td><span>FILE</span></td>
+        <td><span>8545건</span></td>
         <td><span th:text="${fileCnt}"></span>건</td>
+        <td><span th:text="8545 - ${fileCnt}"></span>건</td>
     </tr>
     <tr>
         <td><span>DB</span></td>
+        <td><span>1337건</span></td>
         <td><span th:text="${dbCnt}"></span>건</td>
+        <td><span th:text="1337 - ${dbCnt}"></span>건</td>
     </tr>
     <tr>
         <td><span>TOTAL</span></td>
+        <td><span>9882건</span></td>
         <td><span th:text="${dbCnt}+${fileCnt}"></span>건</td>
+        <td><span th:text="9882 - (${dbCnt}+${fileCnt})"></span>건</td>
     </tr>
 </table>
 <a href="/mappingData"><button>Mapping Data</button></a>
