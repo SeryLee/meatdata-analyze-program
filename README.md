@@ -1,9 +1,8 @@
-# MetadataAnalzeProgram
+# CategoryProgram
 
 ## MongoDB 의 메타데이터를 RDB 형식으로 매핑하는 프로그램입니다.
 
 ### 1. properties 파일 설정
-- uri 와 db 정보를 수정합니다.
 
 ```xml
 #MongoDB
