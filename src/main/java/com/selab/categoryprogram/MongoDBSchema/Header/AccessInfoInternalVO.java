@@ -17,4 +17,6 @@ public class AccessInfoInternalVO {
     private List<String> api_list;
     @Field("default_api")
     private String default_api;
+    @Field("table_info")
+    private TableInfoVO tableInfoVO;
 }
