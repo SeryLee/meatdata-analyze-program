@@ -11,6 +11,4 @@ public class IndexInfoVO {
     private String number_of_index;
     @Field("indexes")
     private List<IndexesVO> indexes;
-    @Field("ddl_script")
-    private String ddl_script;
 }

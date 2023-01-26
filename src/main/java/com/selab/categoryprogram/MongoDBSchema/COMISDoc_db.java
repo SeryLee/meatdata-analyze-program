@@ -1,5 +1,7 @@
 package com.selab.categoryprogram.MongoDBSchema;
 
+import com.selab.categoryprogram.MongoDBSchema.Annex.AnnexVO;
+import com.selab.categoryprogram.MongoDBSchema.Body.BodyVO;
 import com.selab.categoryprogram.MongoDBSchema.Header.HeaderVO;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -14,5 +16,9 @@ public class COMISDoc_db {
     private String _class;
     @Field("header")
     private HeaderVO headerVO;
+    @Field("body")
+    private BodyVO bodyVO;
+    @Field("annex")
+    private AnnexVO annexVO;
 }
 
