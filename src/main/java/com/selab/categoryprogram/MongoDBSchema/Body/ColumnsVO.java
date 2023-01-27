@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
-public class columnsVO {
+public class ColumnsVO {
     @Field("column_id")
     private String column_id;
     @Field("column_name")

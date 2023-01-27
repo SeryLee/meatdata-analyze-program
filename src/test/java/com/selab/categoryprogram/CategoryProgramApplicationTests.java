@@ -1,6 +1,6 @@
 package com.selab.categoryprogram;
 
-import com.selab.categoryprogram.MongDBRepository.FindRepository;
+import com.selab.categoryprogram.MongDBRepository.COMISDBFindRepository;
 import com.selab.categoryprogram.MongoDBSchema.COMISDoc_db;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CategoryProgramApplicationTests {
 
     @Autowired
-    FindRepository comisRepository;
+    COMISDBFindRepository comisRepository;
 
     @Test
     void mongoDBFindAllTest() {

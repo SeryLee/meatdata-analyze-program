@@ -1,6 +1,5 @@
 package com.selab.categoryprogram.Service;
 
-import com.selab.categoryprogram.MongDBRepository.FindRepository;
 import com.selab.categoryprogram.MongoDBSchema.COMISDocDto;
 import com.selab.categoryprogram.RDBSchema.CDMSVO;
 import com.selab.categoryprogram.RDBSchema.MappingResultDto;

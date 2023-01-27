@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FindRepository extends MongoRepository<COMISDoc_db, String> {
+public interface COMISDBFindRepository extends MongoRepository<COMISDoc_db, String> {
 
     @Query("{'_id' : :#{#id}}")
     COMISDoc_db getProductIdById(@Param("id") String id);

@@ -3,7 +3,7 @@ package com.selab.categoryprogram.Service;
 import com.selab.categoryprogram.RDBSchema.CDMSVO;
 import com.selab.categoryprogram.RDBSchema.ReadCodeDto;
 import com.selab.categoryprogram.JPARepository.H2Repository;
-import com.selab.categoryprogram.MongDBRepository.FindRepository;
+import com.selab.categoryprogram.MongDBRepository.COMISDBFindRepository;
 import com.selab.categoryprogram.MongoDBSchema.COMISDoc_db;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class COMISToCDMSServiceTest {
 
     @Autowired
-    private FindRepository findRepository;
+    private COMISDBFindRepository COMISDBFindRepository;
     @Autowired
     private H2Repository h2Repository;
     @Autowired
@@ -37,7 +37,7 @@ class COMISToCDMSServiceTest {
             String includeWordInFileName = readCodeDto.getIncludeWordInFileName();
             List<String> saveCodeGroup = readCodeDto.getSaveCodeGroup();
 
-            List<COMISDoc_db> allByCodes = findRepository.findAllByReadCodeDto(includeWordInFileName, saveCodeGroup);
+            List<COMISDoc_db> allByCodes = COMISDBFindRepository.findAllByReadCodeDto(includeWordInFileName, saveCodeGroup);
             CDMSVO cdmsvo = new CDMSVO();
             for (COMISDoc_db comisDoc : allByCodes) {
                 cdmsvo.setNew_code(readCodeDto.getNewCode());

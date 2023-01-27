@@ -10,5 +10,5 @@ public class ColumnInfoVO {
     @Field("number_of_columns")
     private String number_of_columns;
     @Field("columns")
-    private List<columnsVO> columns;
+    private List<ColumnsVO> columns;
 }
