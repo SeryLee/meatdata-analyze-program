@@ -73,7 +73,7 @@ class COMISToCDMSServiceTest {
 
     @Test
     void readFileTest() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("C:\\DATA.OBSD.csv"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\OBSD.csv"));
         String line;
         while ((line = reader.readLine()) != null) {
             System.out.println(line);
