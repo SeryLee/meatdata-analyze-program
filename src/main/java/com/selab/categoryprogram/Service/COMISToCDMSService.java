@@ -1,5 +1,7 @@
 package com.selab.categoryprogram.Service;
 
+import com.selab.categoryprogram.MongDBRepository.COMISDBFindRepository;
+import com.selab.categoryprogram.MongDBRepository.COMISFILEFindRepository;
 import com.selab.categoryprogram.MongoDBSchema.COMISDocDto;
 import com.selab.categoryprogram.RDBSchema.CDMSVO;
 import com.selab.categoryprogram.RDBSchema.MappingResultDto;
@@ -24,11 +26,17 @@ public class COMISToCDMSService {
     private final H2Repository h2Repository;
     private final ReadCOMISCodeFileService readCOMISCodeFileService;
     private final MongoTemplate mongoTemplate;
+    private final COMISDBFindRepository cOMISDBFindRepository;
+    private final COMISFILEFindRepository cOMISFILEFindRepository;
 
-    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate) {
+    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate,
+                              COMISDBFindRepository cOMISDBFindRepository,
+                              COMISFILEFindRepository cOMISFILEFindRepository) {
         this.h2Repository = h2Repository;
         this.readCOMISCodeFileService = readCOMISCodeFileService;
         this.mongoTemplate = mongoTemplate;
+        this.cOMISDBFindRepository = cOMISDBFindRepository;
+        this.cOMISFILEFindRepository = cOMISFILEFindRepository;
     }
 
     public void classifyCOMIS() throws IOException {
@@ -58,8 +66,30 @@ public class COMISToCDMSService {
             cdmsvo.setNew_code(readCodeDto.getNewCode());
             cdmsvo.setCategory(readCodeDto.getFileName());
             cdmsvo.setComis_id(comisDoc.get_id());
+            cdmsvo.set_class(comisDoc.get_class());
             cdmsvo.setProduct_group(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
             cdmsvo.setProduct_name_kr(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_kr());
+            cdmsvo.setProduct_id(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
+            cdmsvo.setProduct_name_en(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_en());
+            cdmsvo.setTimezone_filename(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getTimezone_filename());
+            cdmsvo.setTimezone_contents(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getTimezone_contents());
+            cdmsvo.setService_ip(comisDoc.getHeaderVO().getAccessInfoInternalVO().getService_ip());
+            cdmsvo.setDir_path(comisDoc.getHeaderVO().getAccessInfoInternalVO().getDir_path());
+            cdmsvo.setDate_path(comisDoc.getHeaderVO().getAccessInfoInternalVO().getDate_path());
+            cdmsvo.setApi_list(comisDoc.getHeaderVO().getAccessInfoInternalVO().getApi_list().toString());
+            cdmsvo.setDefault_api(comisDoc.getHeaderVO().getAccessInfoExternalVO().getDefault_api());
+            cdmsvo.setOperation_start_date(comisDoc.getHeaderVO().getMetaInfoVO().getApplyInfoVO().getOperation_start_date());
+            cdmsvo.setOperation_finish_date(comisDoc.getHeaderVO().getMetaInfoVO().getApplyInfoVO().getOperation_finish_date());
+            cdmsvo.setFile_extension(comisDoc.getBodyVO().getFormatInfoVO().getFile_extension());
+            cdmsvo.setCompress_method(comisDoc.getBodyVO().getFormatInfoVO().getCompress_method());
+            cdmsvo.setFile_format(comisDoc.getBodyVO().getFormatInfoVO().getFile_format());
+            cdmsvo.setNumber_of_index(comisDoc.getBodyVO().getIndexInfoVO().getNumber_of_index());
+            cdmsvo.setIndexes(comisDoc.getBodyVO().getIndexInfoVO().getIndexes().toString());
+            cdmsvo.setProduct_origin(comisDoc.getAnnexVO().getDescInfoVO().getProduct_origin());
+            cdmsvo.setProduct_system(comisDoc.getAnnexVO().getDescInfoVO().getProduct_system());
+            cdmsvo.setProduct_lang(comisDoc.getAnnexVO().getDescInfoVO().getProduct_lang());
+            cdmsvo.setMeta_lang(comisDoc.getAnnexVO().getDescInfoVO().getMeta_lang());
+            cdmsvo.setMeta_charset(comisDoc.getAnnexVO().getDescInfoVO().getMeta_charset());
             cdmsvo.setType("FILE");
             cdmsvos.add(cdmsvo);
         }
@@ -74,8 +104,31 @@ public class COMISToCDMSService {
             cdmsvo.setNew_code(readCodeDto.getNewCode());
             cdmsvo.setCategory(readCodeDto.getFileName());
             cdmsvo.setComis_id(comisDoc.get_id());
+            cdmsvo.set_class(comisDoc.get_class());
             cdmsvo.setProduct_group(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_group().toString());
             cdmsvo.setProduct_name_kr(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_kr());
+            cdmsvo.setProduct_id(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_id());
+            cdmsvo.setProduct_name_en(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getProduct_name_en());
+            cdmsvo.setTimezone_filename(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getTimezone_filename());
+            cdmsvo.setTimezone_contents(comisDoc.getHeaderVO().getMetaInfoVO().getProductInfoVO().getTimezone_contents());
+            cdmsvo.setService_ip(comisDoc.getHeaderVO().getAccessInfoInternalVO().getService_ip());
+            cdmsvo.setDir_path(comisDoc.getHeaderVO().getAccessInfoInternalVO().getDir_path());
+            cdmsvo.setDate_path(comisDoc.getHeaderVO().getAccessInfoInternalVO().getDate_path());
+            cdmsvo.setApi_list(comisDoc.getHeaderVO().getAccessInfoInternalVO().getApi_list().toString());
+            cdmsvo.setDefault_api(comisDoc.getHeaderVO().getAccessInfoExternalVO().getDefault_api());
+            cdmsvo.setOperation_start_date(comisDoc.getHeaderVO().getMetaInfoVO().getApplyInfoVO().getOperation_start_date());
+            cdmsvo.setOperation_finish_date(comisDoc.getHeaderVO().getMetaInfoVO().getApplyInfoVO().getOperation_finish_date());
+            cdmsvo.setDdl_script(comisDoc.getBodyVO().getDdl_script());
+            cdmsvo.setNumber_of_columns(comisDoc.getBodyVO().getColumnInfoVO().getNumber_of_columns());
+            cdmsvo.setColumns(comisDoc.getBodyVO().getColumnInfoVO().getColumns().toString());
+            cdmsvo.setProduct_origin(comisDoc.getAnnexVO().getDescInfoVO().getProduct_origin());
+            cdmsvo.setProduct_system(comisDoc.getAnnexVO().getDescInfoVO().getProduct_system());
+            cdmsvo.setProduct_lang(comisDoc.getAnnexVO().getDescInfoVO().getProduct_lang());
+            cdmsvo.setMeta_lang(comisDoc.getAnnexVO().getDescInfoVO().getMeta_lang());
+            cdmsvo.setMeta_charset(comisDoc.getAnnexVO().getDescInfoVO().getMeta_charset());
+            cdmsvo.setDb_name(comisDoc.getHeaderVO().getAccessInfoInternalVO().getTableInfoVO().getDb_name());
+            cdmsvo.setUser_id(comisDoc.getHeaderVO().getAccessInfoInternalVO().getTableInfoVO().getUser_id());
+            cdmsvo.setTable_name(comisDoc.getHeaderVO().getAccessInfoInternalVO().getTableInfoVO().getTable_name());
             cdmsvo.setType("DB");
             cdmsvos.add(cdmsvo);
         }
