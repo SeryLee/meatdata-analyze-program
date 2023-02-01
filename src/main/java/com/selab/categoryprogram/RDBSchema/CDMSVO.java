@@ -27,6 +27,7 @@ public class CDMSVO {
     private String meta_charset;
     private String ddl_script;
     private String number_of_columns;
+    @Column(length = 10000)
     private String columns;
     private String file_extension;
     private String compress_method;
@@ -42,6 +43,7 @@ public class CDMSVO {
     private String operation_start_date;
     private String operation_finish_date;
     private String product_id;
+    @Column(length = 500)
     private String product_name_en;
     private String timezone_filename;
     private String timezone_contents;

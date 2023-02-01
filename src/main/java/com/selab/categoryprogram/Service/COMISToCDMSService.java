@@ -26,17 +26,15 @@ public class COMISToCDMSService {
     private final H2Repository h2Repository;
     private final ReadCOMISCodeFileService readCOMISCodeFileService;
     private final MongoTemplate mongoTemplate;
-    private final COMISDBFindRepository cOMISDBFindRepository;
-    private final COMISFILEFindRepository cOMISFILEFindRepository;
+    private final COMISDBFindRepository comisdbFindRepository;
+    private final COMISFILEFindRepository comisfileFindRepository;
 
-    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate,
-                              COMISDBFindRepository cOMISDBFindRepository,
-                              COMISFILEFindRepository cOMISFILEFindRepository) {
+    public COMISToCDMSService(H2Repository h2Repository, ReadCOMISCodeFileService readCOMISCodeFileService, MongoTemplate mongoTemplate, COMISDBFindRepository comisdbFindRepository, COMISFILEFindRepository comisfileFindRepository) {
         this.h2Repository = h2Repository;
         this.readCOMISCodeFileService = readCOMISCodeFileService;
         this.mongoTemplate = mongoTemplate;
-        this.cOMISDBFindRepository = cOMISDBFindRepository;
-        this.cOMISFILEFindRepository = cOMISFILEFindRepository;
+        this.comisdbFindRepository = comisdbFindRepository;
+        this.comisfileFindRepository = comisfileFindRepository;
     }
 
     public void classifyCOMIS() throws IOException {
@@ -77,14 +75,14 @@ public class COMISToCDMSService {
             cdmsvo.setDir_path(comisDoc.getHeaderVO().getAccessInfoInternalVO().getDir_path());
             cdmsvo.setDate_path(comisDoc.getHeaderVO().getAccessInfoInternalVO().getDate_path());
             cdmsvo.setApi_list(comisDoc.getHeaderVO().getAccessInfoInternalVO().getApi_list().toString());
-            cdmsvo.setDefault_api(comisDoc.getHeaderVO().getAccessInfoExternalVO().getDefault_api());
+            cdmsvo.setDefault_api((comisDoc.getHeaderVO().getAccessInfoInternalVO() == null) ? "N/A" : comisDoc.getHeaderVO().getAccessInfoInternalVO().getDefault_api());
             cdmsvo.setOperation_start_date(comisDoc.getHeaderVO().getMetaInfoVO().getApplyInfoVO().getOperation_start_date());
             cdmsvo.setOperation_finish_date(comisDoc.getHeaderVO().getMetaInfoVO().getApplyInfoVO().getOperation_finish_date());
             cdmsvo.setFile_extension(comisDoc.getBodyVO().getFormatInfoVO().getFile_extension());
             cdmsvo.setCompress_method(comisDoc.getBodyVO().getFormatInfoVO().getCompress_method());
             cdmsvo.setFile_format(comisDoc.getBodyVO().getFormatInfoVO().getFile_format());
-            cdmsvo.setNumber_of_index(comisDoc.getBodyVO().getIndexInfoVO().getNumber_of_index());
-            cdmsvo.setIndexes(comisDoc.getBodyVO().getIndexInfoVO().getIndexes().toString());
+            cdmsvo.setNumber_of_index((comisDoc.getBodyVO().getIndexInfoVO() == null) ? "N/A" : comisDoc.getBodyVO().getIndexInfoVO().getNumber_of_index());
+            cdmsvo.setIndexes((comisDoc.getBodyVO().getIndexInfoVO() == null) ? "N/A" : comisDoc.getBodyVO().getIndexInfoVO().getIndexes().toString());
             cdmsvo.setProduct_origin(comisDoc.getAnnexVO().getDescInfoVO().getProduct_origin());
             cdmsvo.setProduct_system(comisDoc.getAnnexVO().getDescInfoVO().getProduct_system());
             cdmsvo.setProduct_lang(comisDoc.getAnnexVO().getDescInfoVO().getProduct_lang());
@@ -115,7 +113,7 @@ public class COMISToCDMSService {
             cdmsvo.setDir_path(comisDoc.getHeaderVO().getAccessInfoInternalVO().getDir_path());
             cdmsvo.setDate_path(comisDoc.getHeaderVO().getAccessInfoInternalVO().getDate_path());
             cdmsvo.setApi_list(comisDoc.getHeaderVO().getAccessInfoInternalVO().getApi_list().toString());
-            cdmsvo.setDefault_api(comisDoc.getHeaderVO().getAccessInfoExternalVO().getDefault_api());
+            cdmsvo.setDefault_api((comisDoc.getHeaderVO().getAccessInfoInternalVO() == null) ? "N/A" : comisDoc.getHeaderVO().getAccessInfoInternalVO().getDefault_api());
             cdmsvo.setOperation_start_date(comisDoc.getHeaderVO().getMetaInfoVO().getApplyInfoVO().getOperation_start_date());
             cdmsvo.setOperation_finish_date(comisDoc.getHeaderVO().getMetaInfoVO().getApplyInfoVO().getOperation_finish_date());
             cdmsvo.setDdl_script(comisDoc.getBodyVO().getDdl_script());
