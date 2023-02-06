@@ -1,4 +1,4 @@
-package com.selab.categoryprogram.RDBSchema;
+package com.selab.categoryprogram.H2Schema;
 
 import lombok.Getter;
 import lombok.Setter;

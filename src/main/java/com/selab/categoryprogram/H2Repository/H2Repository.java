@@ -1,6 +1,6 @@
-package com.selab.categoryprogram.JPARepository;
+package com.selab.categoryprogram.H2Repository;
 
-import com.selab.categoryprogram.RDBSchema.CDMSVO;
+import com.selab.categoryprogram.H2Schema.CDMSVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

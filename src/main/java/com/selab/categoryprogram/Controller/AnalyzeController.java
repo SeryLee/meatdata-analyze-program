@@ -1,11 +1,11 @@
 package com.selab.categoryprogram.Controller;
 
-import com.selab.categoryprogram.JPARepository.H2Repository;
+import com.selab.categoryprogram.H2Repository.H2Repository;
 import com.selab.categoryprogram.MongDBRepository.COMISDBFindRepository;
 import com.selab.categoryprogram.MongDBRepository.COMISFILEFindRepository;
 import com.selab.categoryprogram.MongoDBSchema.COMISDoc_db;
 import com.selab.categoryprogram.MongoDBSchema.COMISDoc_file;
-import com.selab.categoryprogram.RDBSchema.CDMSVO;
+import com.selab.categoryprogram.H2Schema.CDMSVO;
 import com.selab.categoryprogram.Service.SearchAttributeService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

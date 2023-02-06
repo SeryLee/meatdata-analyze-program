@@ -1,8 +1,8 @@
 package com.selab.categoryprogram.Service;
 
-import com.selab.categoryprogram.RDBSchema.CDMSVO;
-import com.selab.categoryprogram.RDBSchema.ReadCodeDto;
-import com.selab.categoryprogram.JPARepository.H2Repository;
+import com.selab.categoryprogram.H2Schema.CDMSVO;
+import com.selab.categoryprogram.H2Schema.ReadCodeDto;
+import com.selab.categoryprogram.H2Repository.H2Repository;
 import com.selab.categoryprogram.MongDBRepository.COMISDBFindRepository;
 import com.selab.categoryprogram.MongoDBSchema.COMISDoc_db;
 import org.junit.jupiter.api.Test;

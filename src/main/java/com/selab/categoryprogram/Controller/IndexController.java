@@ -1,15 +1,14 @@
 package com.selab.categoryprogram.Controller;
 
-import com.selab.categoryprogram.JPARepository.H2Repository;
+import com.selab.categoryprogram.H2Repository.H2Repository;
 import com.selab.categoryprogram.MongoDBSchema.COMISDocDto;
-import com.selab.categoryprogram.RDBSchema.CDMSVO;
-import com.selab.categoryprogram.RDBSchema.MappingResultDto;
+import com.selab.categoryprogram.H2Schema.CDMSVO;
+import com.selab.categoryprogram.H2Schema.MappingResultDto;
 import com.selab.categoryprogram.Service.COMISToCDMSService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller

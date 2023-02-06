@@ -1,6 +1,6 @@
 package com.selab.categoryprogram.Service;
 
-import com.selab.categoryprogram.RDBSchema.ReadCodeDto;
+import com.selab.categoryprogram.H2Schema.ReadCodeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
