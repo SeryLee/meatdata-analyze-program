@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 @Getter
-public class PatternInfoVo {
+public class PatternInfoVO {
     @Field("pattern")
     private List<PatternVO> pattern;
 }

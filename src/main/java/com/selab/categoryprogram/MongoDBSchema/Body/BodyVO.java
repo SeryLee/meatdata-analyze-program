@@ -8,6 +8,8 @@ public class BodyVO {
     /*file*/
     @Field("format_info")
     private FormatInfoVO formatInfoVO;
+    @Field("read_info")
+    private ReadInfoVO readInfoVO;
     /*db*/
     @Field("column_info")
     private ColumnInfoVO columnInfoVO;

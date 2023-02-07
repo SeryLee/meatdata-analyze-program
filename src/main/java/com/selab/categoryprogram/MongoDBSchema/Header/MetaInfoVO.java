@@ -10,7 +10,7 @@ public class MetaInfoVO {
     @Field("product_info")
     private ProductInfoVO productInfoVO;
     @Field("pattern_info")
-    private PatternInfoVo patternInfoVo;
+    private PatternInfoVO patternInfoVo;
     @Field("contents_info")
     private ContentsInfoVO contentsInfoVO;
     @Field("product_level")
