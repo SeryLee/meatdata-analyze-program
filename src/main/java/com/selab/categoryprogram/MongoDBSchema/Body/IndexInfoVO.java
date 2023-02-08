@@ -7,8 +7,8 @@ import java.util.List;
 
 @Getter
 public class IndexInfoVO {
-    @Field("number_of_index")
-    private String number_of_index;
+    @Field("number_of_indexes")
+    private String number_of_indexes;
     @Field("indexes")
     private List<IndexesVO> indexes;
 }

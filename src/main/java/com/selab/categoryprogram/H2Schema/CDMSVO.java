@@ -58,7 +58,7 @@ public class CDMSVO {
     private String number_of_columns;
     @Column(length = 10000)
     private String columns;
-    private String number_of_index;
+    private String number_of_indexes;
     @Column(length = 500)
     private String indexes;
     private String ddl_script;

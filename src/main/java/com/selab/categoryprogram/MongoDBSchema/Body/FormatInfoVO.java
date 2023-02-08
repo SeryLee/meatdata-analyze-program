@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 public class FormatInfoVO {
-    @Field("file_extension")
+    @Field("file_extention")
     private String file_extension;
     @Field("compress_method")
     private String compress_method;

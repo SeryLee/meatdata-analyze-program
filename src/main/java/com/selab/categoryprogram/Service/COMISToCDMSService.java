@@ -154,7 +154,7 @@ public class COMISToCDMSService {
             cdmsvo.setDdl_script(comisDoc.getBodyVO().getDdl_script());
             cdmsvo.setNumber_of_columns(comisDoc.getBodyVO().getColumnInfoVO().getNumber_of_columns());
             cdmsvo.setColumns(comisDoc.getBodyVO().getColumnInfoVO().getColumns().toString());
-            cdmsvo.setNumber_of_index(comisDoc.getBodyVO().getIndexInfoVO().getNumber_of_index());
+            cdmsvo.setNumber_of_indexes(comisDoc.getBodyVO().getIndexInfoVO().getNumber_of_indexes());
             cdmsvo.setIndexes(comisDoc.getBodyVO().getIndexInfoVO().getIndexes().toString());
             /*Annex*/
             cdmsvo.setMeta_manager(comisDoc.getAnnexVO().getMetaBasicInfoVO().getMeta_manager());
