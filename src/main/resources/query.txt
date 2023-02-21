@@ -1,4 +1,24 @@
+SQL
 -- 같은 id 중복 체크
 select count(comis_id) as cnt, comis_id from cdms group by comis_id having cnt>1;
-
+-- id 로 검색
 select * from cdms where comis_id like 'T.COMIS5.DCOMIS.MIS_ADM^SEA_LHAWS';
+-- 데이터 최대길이 검색(길이가 긴 순서대로)
+select length(comis_id) len from cdms order by len desc;
+
+noSQL
+-- 데이터 최대길이 검색(길이가 긴 순서대로) - 단일 값인 경우
+db.db.metadata.product.file.aggregate([{$project : {'_id' : 1, 'length' : {$strLenCP : '$_id'}}}, {$sort : {'length' : -1}}])
+-- 데이터 최대길이 검색(길이가 긴 순서대로) - array(배열) 안의 요소인 경우
+db.db.metadata.product.file.aggregate([{$project : {'header.meta_info.contents_info.contents_list.name' : 1, 'length' : {$strLenCP : { "$arrayElemAt": ["$header.meta_info.contents_info.contents_list.name", 0] } }}}, {$sort : {'length' : -1}}])
+-- 특정 데이터 값이 아닌 것 검색
+db.db.metadata.product.file.find({'$nor' : [ {"body.read_info.ascii_info.ascii_record_info.ascii_elements.name": {'$regex' : "N/A"}}]})
+-- 배열 길이가 긴 순서대로 검색
+db.db.metadata.product.file.aggregate([
+    {
+        $project : { 'body.read_info.binary_info.body_info.binary_record_info.binary_elements': {$size: { "$ifNull": [ "$body.read_info.binary_info.body_info.binary_record_info.binary_elements", [] ] } } }
+    },
+    {
+        $sort: {"body.read_info.binary_info.body_info.binary_record_info.binary_elements":-1}
+    }
+])

@@ -96,7 +96,9 @@ public class COMISToCDMSService {
             cdmsvo.setCompress_method(comisDoc.getBodyVO().getFormatInfoVO().getCompress_method());
             cdmsvo.setFile_format(comisDoc.getBodyVO().getFormatInfoVO().getFile_format());
             cdmsvo.setBinary_info(comisDoc.getBodyVO().getReadInfoVO().getBinaryInfoVO().toString());
+            cdmsvo.setBinary_header_size(comisDoc.getBodyVO().getReadInfoVO().getBinaryInfoVO().getHeaderInfoVO().getHeader_size());
             cdmsvo.setAscii_info(comisDoc.getBodyVO().getReadInfoVO().getAsciiInfoVO().toString());
+            cdmsvo.setAscii_header_size(comisDoc.getBodyVO().getReadInfoVO().getAsciiInfoVO().getCommonInfoVO().getHeader_size());
             /*Annex*/
             cdmsvo.setMeta_manager(comisDoc.getAnnexVO().getMetaBasicInfoVO().getMeta_manager());
             cdmsvo.setProduct_origin(comisDoc.getAnnexVO().getDescInfoVO().getProduct_origin());

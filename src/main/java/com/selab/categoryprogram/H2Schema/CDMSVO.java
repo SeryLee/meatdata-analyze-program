@@ -54,7 +54,9 @@ public class CDMSVO {
     private String compress_method;
     private String file_format;
     private String binary_info;
+    private String binary_header_size;
     private String ascii_info;
+    private String ascii_header_size;
     private String number_of_columns;
     @Column(length = 10000)
     private String columns;
